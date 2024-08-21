@@ -5,6 +5,7 @@ django-appconf==1.0.6
 django-ckeditor-5==0.2.13
 django-cors-headers==4.4.0
 django-filter==24.3
+django-parler==2.3
 django-staticfiles==1.2.1
 djangorestframework==3.15.2
 drf-spectacular==0.27.2
