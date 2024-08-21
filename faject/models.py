@@ -15,3 +15,18 @@ class Category(TranslatableModel):
 
     def __str__(self):
         return self.name 
+
+
+class SubCategory(TranslatableModel):
+    translations = TranslatedFields(
+        name=models.CharField(_("name"), max_length=250),
+    )
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория', related_name='category')
+
+    class Meta:
+        ordering = ["-id"]
+        verbose_name = _("Подкатегория")
+        verbose_name_plural = _("Подкатегория")
+
+    def __str__(self):
+        return self.name 
