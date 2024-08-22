@@ -188,4 +188,4 @@ class Application(models.Model):
         verbose_name_plural = _("ОСТАВЬТЕ ЗАЯВКУ")
 
     def __str__(self):
-        return self.full_clean
+        return self.full_name
