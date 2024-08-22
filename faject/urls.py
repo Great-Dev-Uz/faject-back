@@ -3,6 +3,7 @@ from faject.category.views import CategoryView, SubCategoryView
 from faject.service.views import ServicesView, ServiceCategoryView, ServiceSubCategoryView, ServiceView
 from faject.projects.views import ProjectCategoryView, ProjectsView, ProjectsCategorView, ProjectView
 from faject.blog.views import BlogCategoryView, BlogSubCategoryView, BlogsView, BlogsCategoryView, BlogsSubCategoryView, BlogView
+from faject.other.views import ComandaView, ToolsCategoryView, ToolsView, ToolView, ApplicationView
 
 
 urlpatterns = [
@@ -26,6 +27,12 @@ urlpatterns = [
     path('blog/<int:pk>/', BlogView.as_view()),
     path('blog/category/<int:pk>/', BlogsCategoryView.as_view()),
     path('blog/sub/category/<int:pk>/', BlogsSubCategoryView.as_view()),
+    # other
+    path('comanda/', ComandaView.as_view()),
+    path('tools/category/', ToolsCategoryView.as_view()),
+    path('tools/', ToolsView.as_view()),
+    path('tool/<int:pk>/', ToolView.as_view()),
+    path('application/', ApplicationView.as_view()),
 
 
 ]

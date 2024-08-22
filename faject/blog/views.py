@@ -69,5 +69,7 @@ class BlogView(APIView):
     @swagger_auto_schema(tags=['Blog'], responses={200: BlogSerializer(many=True)})
     def get(self, request, pk):
         instances = get_object_or_404(Blog, id=pk)
+        blogs = Blog.objects.filter(category=instances.category).order_by("?")[::3]
+        blog_serializer = BlogSerializer(blogs, many=True, context={'request': request})
         serializer = BlogSerializer(instances, context={'request': request})
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({'serializer': serializer.data, 'product': blog_serializer.data}, status=status.HTTP_200_OK)
