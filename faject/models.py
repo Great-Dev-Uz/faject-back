@@ -68,6 +68,7 @@ class ProjectCategory(TranslatableModel):
 class Projects(TranslatableModel):
     translations = TranslatedFields(
         title = models.CharField(_("Заголовок"), max_length=250),
+        short_description = CKEditor5Field(config_name='extends', verbose_name="Краткое описание"),
         description = CKEditor5Field(config_name='extends', verbose_name="Описание" )
     )
     image = models.ImageField(upload_to='projects/', verbose_name="Изображение")
@@ -145,7 +146,7 @@ class Comanda(TranslatableModel):
         verbose_name_plural = _("Команда")
 
     def __str__(self):
-        return self.full_clean
+        return self.full_name
 
 
 class ToolsCategory(models.Model):
