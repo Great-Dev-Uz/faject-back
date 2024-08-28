@@ -12,7 +12,7 @@ schema_view = get_schema_view(
       title="Faject",
       default_version='v 1.0.0',
       description="ShFajectuba API",
-      terms_of_service="https://api.furcashmere.ru/swagger/",
+      terms_of_service="https://api.faject.com/swagger/",
       contact=openapi.Contact(email="istamovibrohim8@gmail.com"),
       license=openapi.License(name="BSD License"),
    ),
