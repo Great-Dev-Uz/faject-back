@@ -17,7 +17,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -229,7 +228,13 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5174",
     "http://localhost:5173",
+    "https://faject.com",
+    "https://api.faject.com"
 ]
+
+
+# settings.py
+CSRF_TRUSTED_ORIGINS = ['https://api.faject.com', 'https://api.faject.com/swagger/']
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
@@ -244,3 +249,11 @@ SWAGGER_SETTINGS = {
       }
    }
 }
+
+# settings.py
+CSRF_TRUSTED_ORIGINS = ['https://api.faject.com']
+# settings.py
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+# settings.py
+CSRF_COOKIE_HTTPONLY = False  # yoki umuman olib tashlang
