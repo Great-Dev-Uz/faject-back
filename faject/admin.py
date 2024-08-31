@@ -1,11 +1,26 @@
 from django.contrib import admin
 from parler.admin import TranslatableAdmin
+from django.core.exceptions import ValidationError
+from django.forms.models import BaseInlineFormSet
+from django.utils.safestring import mark_safe
+
 from faject.models import (
-    Category, SubCategory, Servise,
+    Category, Servise, HowDoWork, OurTerms,
     ProjectCategory, Projects,
     BlogCategory, BlogSubCategory, Blog,
-    Comanda, ToolsCategory, Tools, Application
+    Comanda, ToolsCategory, Tools, Application,
+    MainCategory, MainContent
 )
+
+
+@admin.register(MainCategory)
+class MainCategoryAdmin(TranslatableAdmin):
+    list_display = ["name"]
+
+
+@admin.register(MainContent)
+class MainContentAdmin(TranslatableAdmin):
+    list_display = ["title"]
 
 
 @admin.register(Category)
@@ -13,13 +28,17 @@ class CategoryAdmin(TranslatableAdmin):
     list_display = ["name"]
 
 
-@admin.register(SubCategory)
-class SubCategoryAdmin(TranslatableAdmin):
-    list_display = ['name']
-
-
 @admin.register(Servise)
 class ServiseAdmin(TranslatableAdmin):
+    list_display = ['title']
+
+
+@admin.register(HowDoWork)
+class HowDoWorkAdmin(TranslatableAdmin):
+    list_display = ['title']
+
+@admin.register(OurTerms)
+class OurTermsAdmin(TranslatableAdmin):
     list_display = ['title']
 
 
@@ -37,6 +56,7 @@ class ProjectAdmin(TranslatableAdmin):
 class BlogCategoryAdmin(TranslatableAdmin):
     list_display = ["name"]
 
+
 @admin.register(BlogSubCategory)
 class BlogSubCategoryAdmin(TranslatableAdmin):
     list_display = ["name"]
@@ -45,7 +65,6 @@ class BlogSubCategoryAdmin(TranslatableAdmin):
 @admin.register(Blog)
 class BlogAdmin(TranslatableAdmin):
     list_display = ['title']
-
 
 
 @admin.register(Comanda)

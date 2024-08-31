@@ -1,19 +1,18 @@
 from django.urls import path
-from faject.category.views import CategoryView, SubCategoryView
-from faject.service.views import ServicesView, ServiceCategoryView, ServiceSubCategoryView, ServiceView
+from faject.category.views import CategoryView
+from faject.service.views import ServicesView, ServiceCategoryView, ServiceView
 from faject.projects.views import ProjectCategoryView, ProjectsView, ProjectsCategorView, ProjectView
 from faject.blog.views import BlogCategoryView, BlogSubCategoryView, BlogsView, BlogsCategoryView, BlogsSubCategoryView, BlogView
 from faject.other.views import ComandaView, ToolsCategoryView, ToolsView, ToolView, ApplicationView
+from faject.main.views import MainCategorysView, MainContentsView, MainContentCategoryView
 
 
 urlpatterns = [
     # Category
     path('category/', CategoryView.as_view()),
-    path('sub/category/', SubCategoryView.as_view()),
     # Service
     path('service/', ServicesView.as_view()),
     path('service/category/<int:pk>/', ServiceCategoryView.as_view()),
-    path('service/sub/category/<int:pk>/', ServiceSubCategoryView.as_view()),
     path('service/<int:pk>/', ServiceView.as_view()),
     # Project
     path('project/category/', ProjectCategoryView.as_view()),
@@ -33,6 +32,9 @@ urlpatterns = [
     path('tools/', ToolsView.as_view()),
     path('tool/<int:pk>/', ToolView.as_view()),
     path('application/', ApplicationView.as_view()),
-
+    # main
+    path('main/category/', MainCategorysView.as_view()),
+    path('main/content/', MainContentsView.as_view()),
+    path('main/content/category/<int:pk>/', MainContentCategoryView.as_view()),
 
 ]

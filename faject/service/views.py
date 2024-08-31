@@ -32,18 +32,6 @@ class ServiceCategoryView(APIView):
         paginated_instances = paginator.paginate_queryset(instances, request)
         serializer = SericeSerializer(paginated_instances, many=True, context={'request': request})
         return paginator.get_paginated_response(serializer.data)
-
-
-class ServiceSubCategoryView(APIView):
-    pagination_class = ProductPagination
-
-    @swagger_auto_schema(tags=['Service'], responses={200: SericeSerializer(many=True)})
-    def get(self, request, pk):
-        instances = Servise.objects.filter(category=pk)
-        paginator = self.pagination_class()
-        paginated_instances = paginator.paginate_queryset(instances, request)
-        serializer = SericeSerializer(paginated_instances, many=True, context={'request': request})
-        return paginator.get_paginated_response(serializer.data)
     
 
 class ServiceView(APIView):

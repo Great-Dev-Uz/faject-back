@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'django_ckeditor_5',
     'parler',
+    'modeltranslation',
     'faject'
 ]
 
@@ -76,8 +77,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'faject',
         'USER': 'postgres',
-        "PASSWORD": "faject2122",
-        # "PASSWORD": "1",
+        # "PASSWORD": "faject2122",
+        "PASSWORD": "1",
         "HOST": "localhost",
         "PORT": 5432,
     }

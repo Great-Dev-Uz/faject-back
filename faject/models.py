@@ -4,13 +4,43 @@ from parler.models import TranslatableModel, TranslatedFields
 from django_ckeditor_5.fields import CKEditor5Field
 
 
+class MainCategory(TranslatableModel):
+    translations = TranslatedFields(
+        name = models.CharField(_("name"), max_length=250),
+    )
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = _("Основная категория")
+        verbose_name_plural = _("Основная категория")
+
+    def __str__(self):
+        return self.name 
+
+
+class MainContent(TranslatableModel):
+    translations = TranslatedFields(
+        title = models.CharField(_("Заголовок"), max_length=250),
+        description = models.TextField(verbose_name='Описание')
+    )
+    category = models.ForeignKey(MainCategory, on_delete=models.CASCADE,  verbose_name='Категория')
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = _("Основное описание")
+        verbose_name_plural = _("Основное описание")
+
+    def __str__(self):
+        return self.title
+
+
 class Category(TranslatableModel):
     translations = TranslatedFields(
         name = models.CharField(_("name"), max_length=250),
     )
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ["id"]
         verbose_name = _("Услуга Категория")
         verbose_name_plural = _("Услуга Категория")
 
@@ -18,32 +48,17 @@ class Category(TranslatableModel):
         return self.name 
 
 
-class SubCategory(TranslatableModel):
-    translations = TranslatedFields(
-        name = models.CharField(_("name"), max_length=250),
-    )
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория', related_name='category')
-
-    class Meta:
-        ordering = ["-id"]
-        verbose_name = _("Услуга Подкатегория")
-        verbose_name_plural = _("Услуга Подкатегория")
-
-    def __str__(self):
-        return self.name 
-    
-
 class Servise(TranslatableModel):
     translations = TranslatedFields(
         title = models.CharField(_("Заголовок"), max_length=250),
         description = CKEditor5Field(config_name='extends', verbose_name="Описание" )
     )
     image = models.ImageField(upload_to='service/', verbose_name="Изображение")
-    category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, verbose_name='Категория', related_name='categorys')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория', related_name='categorys')
     create_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ["id"]
         verbose_name = _("Услуга")
         verbose_name_plural = _("Услуга")
 
@@ -51,13 +66,45 @@ class Servise(TranslatableModel):
         return self.title 
 
 
+class HowDoWork(TranslatableModel):
+    translations = TranslatedFields(
+        title = models.CharField(null=True, blank=True, max_length=250, verbose_name="Заголовок"),
+        description = models.TextField(null=True, blank=True, verbose_name="Описание")
+    )
+    image = models.ImageField(upload_to='service/', null=True, blank=True, verbose_name="Изображение")
+    service = models.ForeignKey(Servise, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Услуга', related_name='service')
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = _("КАК МЫ РАБОТАЕМ")
+        verbose_name_plural = _("КАК МЫ РАБОТАЕМ")
+
+    def __str__(self):
+        return self.title
+
+
+class OurTerms(TranslatableModel):
+    translations = TranslatedFields(
+        title = models.CharField(null=True, blank=True, max_length=250, verbose_name="Заголовок"),
+        description = models.CharField(null=True, blank=True, max_length=250, verbose_name="Описание")
+    )
+    service = models.ForeignKey(Servise, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Услуга', related_name='out_terms')
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = _("НАШИ УСЛОВИЯ")
+        verbose_name_plural = _("НАШИ УСЛОВИЯ")
+
+    def __str__(self):
+        return self.title
+
 class ProjectCategory(TranslatableModel):
     translations = TranslatedFields(
         name = models.CharField(_("name"), max_length=250),
     )
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ["id"]
         verbose_name = _("Проекта Категория")
         verbose_name_plural = _("Проекта Категория ")
 
@@ -76,7 +123,7 @@ class Projects(TranslatableModel):
     create_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ["id"]
         verbose_name = _("Проекты")
         verbose_name_plural = _("Проекты")
 
@@ -90,7 +137,7 @@ class BlogCategory(TranslatableModel):
     )
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ["id"]
         verbose_name = _("Блог Категория")
         verbose_name_plural = _("Блог Категория")
 
@@ -105,7 +152,7 @@ class BlogSubCategory(TranslatableModel):
     category = models.ForeignKey(BlogCategory, on_delete=models.CASCADE, verbose_name='Категория', related_name='blog_categor')
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ["id"]
         verbose_name = _("Блог Подкатегория")
         verbose_name_plural = _("Блог Подкатегория")
 
@@ -124,7 +171,7 @@ class Blog(TranslatableModel):
     create_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ["id"]
         verbose_name = _("Блог")
         verbose_name_plural = _("Блог")
 
@@ -141,7 +188,7 @@ class Comanda(TranslatableModel):
 
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ["id"]
         verbose_name = _("Команда")
         verbose_name_plural = _("Команда")
 
@@ -153,7 +200,7 @@ class ToolsCategory(models.Model):
     name = models.CharField(max_length=250, verbose_name="Имя")
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ["id"]
         verbose_name = _("Инструменты Категория")
         verbose_name_plural = _("Инструменты Категория")
 
@@ -167,7 +214,7 @@ class Tools(models.Model):
     image = models.ImageField(upload_to='tools', verbose_name="Изображение")
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ["id"]
         verbose_name = _("Инструменты")
         verbose_name_plural = _("Инструменты")
 
@@ -179,12 +226,12 @@ class Application(models.Model):
     full_name = models.CharField(max_length=250, verbose_name="Имя")
     phone = models.CharField(max_length=250, verbose_name="Телефон")
     email = models.EmailField(verbose_name="E-mail")
-    service_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, verbose_name="Услугу")
+    service_category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Услугу")
     description = models.TextField(verbose_name="Опишите свой проект")
     create_at = models.DateField(auto_now_add=True,  verbose_name="Дата")
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ["id"]
         verbose_name = _("ОСТАВЬТЕ ЗАЯВКУ")
         verbose_name_plural = _("ОСТАВЬТЕ ЗАЯВКУ")
 
