@@ -7,6 +7,7 @@ django-appconf==1.0.6
 django-ckeditor-5==0.2.13
 django-cors-headers==4.4.0
 django-filter==24.3
+django-modeltranslation==0.19.7
 django-parler==2.3
 django-parler-rest==2.2
 django-staticfiles==1.2.1
