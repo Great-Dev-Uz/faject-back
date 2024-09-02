@@ -27,7 +27,7 @@ class ServiceCategoryView(APIView):
 
     @swagger_auto_schema(tags=['Service'], responses={200: SericeSerializer(many=True)})
     def get(self, request, pk):
-        instances = Servise.objects.filter(category__category=pk)
+        instances = Servise.objects.filter(category=pk)
         paginator = self.pagination_class()
         paginated_instances = paginator.paginate_queryset(instances, request)
         serializer = SericeSerializer(paginated_instances, many=True, context={'request': request})
