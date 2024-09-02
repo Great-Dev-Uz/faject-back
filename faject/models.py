@@ -53,7 +53,6 @@ class Servise(TranslatableModel):
         title = models.CharField(_("Заголовок"), max_length=250),
         short_title = models.CharField(max_length=250, null=True, blank=True, verbose_name='Короткое название'),
         short_description = models.TextField(null=True, blank=True, verbose_name='Краткое описание'),
-        description = CKEditor5Field(config_name='extends', verbose_name="Описание" )
     )
     icon = models.FileField(upload_to='service_icon/', null=True, blank=True, verbose_name='Икона')
     image = models.ImageField(upload_to='service/', verbose_name="Изображение")
@@ -100,6 +99,22 @@ class OurTerms(TranslatableModel):
 
     def __str__(self):
         return self.title
+
+
+class Advantages(TranslatableModel):
+    translations = TranslatedFields(
+        description = models.CharField(null=True, blank=True, max_length=250, verbose_name="Описание")
+    )
+    service = models.ForeignKey(Servise, on_delete=models.CASCADE, verbose_name='Услуга', related_name='advantages')
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = _("ПРЕИМУЩЕСТВА")
+        verbose_name_plural = _("ПРЕИМУЩЕСТВА")
+
+    def __str__(self):
+        return self.description
+
 
 class ProjectCategory(TranslatableModel):
     translations = TranslatedFields(

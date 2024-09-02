@@ -5,7 +5,7 @@ from django.forms.models import BaseInlineFormSet
 from django.utils.safestring import mark_safe
 
 from faject.models import (
-    Category, Servise, HowDoWork, OurTerms,
+    Category, Servise, HowDoWork, OurTerms, Advantages,
     ProjectCategory, Projects,
     BlogCategory, BlogSubCategory, Blog,
     Comanda, ToolsCategory, Tools, Application,
@@ -41,6 +41,9 @@ class HowDoWorkAdmin(TranslatableAdmin):
 class OurTermsAdmin(TranslatableAdmin):
     list_display = ['title']
 
+@admin.register(Advantages)
+class AdvantagesAdmin(TranslatableAdmin):
+    list_display = ['description']
 
 @admin.register(ProjectCategory)
 class ProjectCategoryAdmin(TranslatableAdmin):

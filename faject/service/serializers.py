@@ -1,7 +1,22 @@
 from parler_rest.serializers import TranslatableModelSerializer
 from parler_rest.fields import TranslatedFieldsField
 
-from faject.models import Servise, Category, HowDoWork, OurTerms
+from faject.models import Servise, Category, HowDoWork, OurTerms,Advantages
+
+
+class AdvantagesSerializer(TranslatableModelSerializer):
+    translations = TranslatedFieldsField(shared_model=Advantages)
+
+    class Meta:
+        model = Advantages
+        fields = ["id", "description", "translations"]
+
+    def get_text(self, instance):
+        return {
+            "ru": instance.name_ru,
+            "en": instance.name_en,
+            "uz": instance.name_uz,
+        }
 
 
 class HowDoWorkSerializer(TranslatableModelSerializer):
@@ -33,6 +48,7 @@ class OurTermsSerializer(TranslatableModelSerializer):
             "uz": instance.name_uz,
         }
 
+
 class CategorySerializer(TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=Category)
 
@@ -53,10 +69,11 @@ class SericeSerializer(TranslatableModelSerializer):
     category = CategorySerializer(read_only=True)
     service = HowDoWorkSerializer(many=True, read_only=True)
     out_terms = OurTermsSerializer(many=True, read_only=True)
+    advantages = AdvantagesSerializer(many=True, read_only=True)
 
     class Meta:
         model = Servise
-        fields = ["id", "title", "short_title", "short_description", "description", "icon", "image", "category", "service", "out_terms", "create_at", "translations"]
+        fields = ["id", "title", "short_title", "short_description", "icon", "image", "category", "service", "out_terms", "advantages", "create_at", "translations"]
 
     def get_text(self, instance):
         return {
