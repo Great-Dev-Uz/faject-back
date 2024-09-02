@@ -25,7 +25,7 @@ class ProjectSerializer(TranslatableModelSerializer):
 
     class Meta:
         model = Projects
-        fields = ["id", "title", "short_description", "description", "image", "category", "create_at", "translations"]
+        fields = ["id", "title", "short_description", "description", "image", "category", "category_service", "create_at", "translations"]
 
     def get_text(self, instance):
         return {

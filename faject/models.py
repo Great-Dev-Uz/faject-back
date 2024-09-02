@@ -152,6 +152,7 @@ class Projects(TranslatableModel):
         description = CKEditor5Field(config_name='extends', verbose_name="Описание" )
     )
     image = models.ImageField(upload_to='projects/', verbose_name="Изображение")
+    category_service = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Категория услуг')
     category = models.ForeignKey(ProjectCategory, on_delete=models.CASCADE, verbose_name='Категория')
     create_at = models.DateTimeField(auto_now_add=True)
 

@@ -6,8 +6,9 @@ from django.shortcuts import get_object_or_404
 from drf_yasg.utils import swagger_auto_schema
 
 from faject.pagination import ProductPagination
-from faject.models import Servise
+from faject.models import Servise, Projects
 from faject.service.serializers import SericeSerializer
+from faject.projects.serializers import ProjectSerializer
 
 
 class ServicesView(APIView):
@@ -39,5 +40,7 @@ class ServiceView(APIView):
     @swagger_auto_schema(tags=['Service'], responses={200: SericeSerializer(many=True)})
     def get(self, request, pk):
         instances = get_object_or_404(Servise, id=pk)
+        project = Projects.objects.filter(category_service=instances.category)
+        serializer_project = ProjectSerializer(project, many=True, context={'request':request})
         serializer = SericeSerializer(instances, context={'request': request})
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({'serivce': serializer.data, 'project': serializer_project.data}, status=status.HTTP_200_OK)

@@ -36,7 +36,7 @@ class LimitInlineFormSet(BaseInlineFormSet):
         super().clean()
         # count all forms that have not been marked for deletion
         count = sum(1 for form in self.forms if not self._should_delete_form(form))
-        max_num = 10  # specify your max number of images here
+        max_num = 15  # specify your max number of images here
         if count > max_num:
             raise ValidationError(f'You can only associate up to {max_num} images with this product.')
 
@@ -46,29 +46,44 @@ class ServiceDesctiptionInline(TranslatableTabularInline):
     formset = LimitInlineFormSet
     extra = 1
     min_num = 1
-    max_num = 10
+    max_num = 15
     fields = ['title']
+
+
+class HowDoWorkInline(TranslatableTabularInline):
+    model = HowDoWork
+    formset = LimitInlineFormSet
+    extra = 1
+    min_num = 1
+    max_num = 15
+
+
+class OurTermsInline(TranslatableTabularInline):
+    model = OurTerms
+    formset = LimitInlineFormSet
+    extra = 1
+    min_num = 1
+    max_num = 15
+
+
+class AdvantagesInline(TranslatableTabularInline):
+    model = Advantages
+    formset = LimitInlineFormSet
+    extra = 1
+    min_num = 1
+    max_num = 15
 
 
 @admin.register(Servise)
 class ServiseAdmin(TranslatableAdmin):
     inlines = [
         ServiceDesctiptionInline,
+        HowDoWorkInline,
+        OurTermsInline,
+        AdvantagesInline,
     ]
     list_display = ['title']
 
-
-@admin.register(HowDoWork)
-class HowDoWorkAdmin(TranslatableAdmin):
-    list_display = ['title']
-
-@admin.register(OurTerms)
-class OurTermsAdmin(TranslatableAdmin):
-    list_display = ['title']
-
-@admin.register(Advantages)
-class AdvantagesAdmin(TranslatableAdmin):
-    list_display = ['description']
 
 @admin.register(ProjectCategory)
 class ProjectCategoryAdmin(TranslatableAdmin):
