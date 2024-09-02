@@ -2,10 +2,13 @@ from django.contrib import admin
 from parler.admin import TranslatableAdmin
 from django.core.exceptions import ValidationError
 from django.forms.models import BaseInlineFormSet
+from parler.admin import TranslatableTabularInline
+
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 
 from faject.models import (
-    Category, Servise, HowDoWork, OurTerms, Advantages,
+    Category, Servise, HowDoWork, OurTerms, Advantages, ServiceDesctiption,
     ProjectCategory, Projects,
     BlogCategory, BlogSubCategory, Blog,
     Comanda, ToolsCategory, Tools, Application,
@@ -28,8 +31,30 @@ class CategoryAdmin(TranslatableAdmin):
     list_display = ["name"]
 
 
+class LimitInlineFormSet(BaseInlineFormSet):
+    def clean(self):
+        super().clean()
+        # count all forms that have not been marked for deletion
+        count = sum(1 for form in self.forms if not self._should_delete_form(form))
+        max_num = 10  # specify your max number of images here
+        if count > max_num:
+            raise ValidationError(f'You can only associate up to {max_num} images with this product.')
+
+
+class ServiceDesctiptionInline(TranslatableTabularInline):
+    model = ServiceDesctiption
+    formset = LimitInlineFormSet
+    extra = 1
+    min_num = 1
+    max_num = 10
+    fields = ['title']
+
+
 @admin.register(Servise)
 class ServiseAdmin(TranslatableAdmin):
+    inlines = [
+        ServiceDesctiptionInline,
+    ]
     list_display = ['title']
 
 

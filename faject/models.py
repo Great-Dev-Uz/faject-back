@@ -55,7 +55,7 @@ class Servise(TranslatableModel):
         short_description = models.TextField(null=True, blank=True, verbose_name='Краткое описание'),
     )
     icon = models.FileField(upload_to='service_icon/', null=True, blank=True, verbose_name='Икона')
-    image = models.ImageField(upload_to='service/', verbose_name="Изображение")
+    image = models.FileField(upload_to='service/', verbose_name="Изображение")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория', related_name='categorys')
     create_at = models.DateTimeField(auto_now_add=True)
 
@@ -65,7 +65,22 @@ class Servise(TranslatableModel):
         verbose_name_plural = _("Услуга")
 
     def __str__(self):
-        return self.title 
+        return self.title
+
+
+class ServiceDesctiption(TranslatableModel):
+    translations = TranslatedFields(
+        title = models.CharField(_("Заголовок"), max_length=250),
+    )
+    service = models.ForeignKey(Servise, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Услуга', related_name='descriptions')
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = _("Описание услуги")
+        verbose_name_plural = _("Описание услуги")
+
+    def __str__(self):
+        return self.title
 
 
 class HowDoWork(TranslatableModel):

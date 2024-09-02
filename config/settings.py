@@ -127,9 +127,9 @@ PARLER_LANGUAGES = {
         },
     ),
     "default": {
-        "fallbacks": "ru",
-        "hide_untranslated": False,  # Default
-    },
+    "fallbacks": ["ru", "en", "uz"],  # Fallbacks in order
+    "hide_untranslated": False,
+},
 }
 # Locales available path
 LOCALE_PATHS = [os.path.join(BASE_DIR, "locale/")]
