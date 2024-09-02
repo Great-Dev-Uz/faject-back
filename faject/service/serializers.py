@@ -56,7 +56,7 @@ class SericeSerializer(TranslatableModelSerializer):
 
     class Meta:
         model = Servise
-        fields = ["id", "title", "description", "image", "category", "service", "out_terms", "create_at", "translations"]
+        fields = ["id", "title", "short_title", "short_description", "description", "icon", "image", "category", "service", "out_terms", "create_at", "translations"]
 
     def get_text(self, instance):
         return {

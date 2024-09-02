@@ -51,8 +51,11 @@ class Category(TranslatableModel):
 class Servise(TranslatableModel):
     translations = TranslatedFields(
         title = models.CharField(_("Заголовок"), max_length=250),
+        short_title = models.CharField(max_length=250, null=True, blank=True, verbose_name='Короткое название'),
+        short_description = models.TextField(null=True, blank=True, verbose_name='Краткое описание'),
         description = CKEditor5Field(config_name='extends', verbose_name="Описание" )
     )
+    icon = models.FileField(upload_to='service_icon/', null=True, blank=True, verbose_name='Икона')
     image = models.ImageField(upload_to='service/', verbose_name="Изображение")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория', related_name='categorys')
     create_at = models.DateTimeField(auto_now_add=True)
