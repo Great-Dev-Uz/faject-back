@@ -88,7 +88,7 @@ class HowDoWork(TranslatableModel):
         title = models.CharField(null=True, blank=True, max_length=250, verbose_name="Заголовок"),
         description = models.TextField(null=True, blank=True, verbose_name="Описание")
     )
-    image = models.ImageField(upload_to='service/', null=True, blank=True, verbose_name="Изображение")
+    image = models.FileField(upload_to='service/', null=True, blank=True, verbose_name="Изображение")
     service = models.ForeignKey(Servise, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Услуга', related_name='service')
 
     class Meta:
@@ -151,7 +151,7 @@ class Projects(TranslatableModel):
         short_description = CKEditor5Field(config_name='extends', verbose_name="Краткое описание"),
         description = CKEditor5Field(config_name='extends', verbose_name="Описание" )
     )
-    image = models.ImageField(upload_to='projects/', verbose_name="Изображение")
+    image = models.FileField(upload_to='projects/', verbose_name="Изображение")
     category_service = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Категория услуг')
     category = models.ForeignKey(ProjectCategory, on_delete=models.CASCADE, verbose_name='Категория')
     create_at = models.DateTimeField(auto_now_add=True)
@@ -200,7 +200,7 @@ class Blog(TranslatableModel):
         short_description = CKEditor5Field(config_name='extends', verbose_name="Краткое описание"),
         description = CKEditor5Field(config_name='extends', verbose_name="Описание" )
     )
-    image = models.ImageField(upload_to='blog/', verbose_name="Изображение")
+    image = models.FileField(upload_to='blog/', verbose_name="Изображение")
     category = models.ForeignKey(BlogSubCategory, on_delete=models.CASCADE, verbose_name='Категория')
     create_at = models.DateTimeField(auto_now_add=True)
 
@@ -218,7 +218,7 @@ class Comanda(TranslatableModel):
         full_name = models.CharField(_("Ф.И.О"), max_length=250),
         position = models.CharField(_("Позиция"), max_length=250),
     )
-    image = models.ImageField(upload_to='comanda/', verbose_name="Изображение")
+    image = models.FileField(upload_to='comanda/', verbose_name="Изображение")
 
 
     class Meta:
@@ -245,7 +245,7 @@ class ToolsCategory(models.Model):
 class Tools(models.Model):
     name = models.CharField(max_length=250, verbose_name="Имя")
     category = models.ForeignKey(ToolsCategory, on_delete=models.CASCADE, verbose_name="Категория")
-    image = models.ImageField(upload_to='tools', verbose_name="Изображение")
+    image = models.FileField(upload_to='tools', verbose_name="Изображение")
 
     class Meta:
         ordering = ["id"]
