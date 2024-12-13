@@ -5,12 +5,14 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from drf_yasg.utils import swagger_auto_schema
 
+from rest_framework.permissions import AllowAny
 from faject.pagination import ProductPagination
 from faject.models import BlogCategory, BlogSubCategory, Blog
 from faject.blog.serializers import BlogCategorySerializer, BlogSubCategorySerializer, BlogSerializer
 
 
 class BlogCategoryView(APIView):
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(tags=['Blog'], responses={200: BlogCategorySerializer(many=True)})
     def get(self, request):
@@ -20,6 +22,7 @@ class BlogCategoryView(APIView):
 
 
 class BlogSubCategoryView(APIView):
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(tags=['Blog'], responses={200: BlogSubCategorySerializer(many=True)})
     def get(self, request):
@@ -30,6 +33,7 @@ class BlogSubCategoryView(APIView):
 
 class BlogsView(APIView):
     pagination_class = ProductPagination
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(tags=['Blog'], responses={200: BlogSerializer(many=True)})
     def get(self, request):
@@ -42,6 +46,7 @@ class BlogsView(APIView):
 
 class BlogsCategoryView(APIView):
     pagination_class = ProductPagination
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(tags=['Blog'], responses={200: BlogSerializer(many=True)})
     def get(self, request, pk):
@@ -54,6 +59,7 @@ class BlogsCategoryView(APIView):
 
 class BlogsSubCategoryView(APIView):
     pagination_class = ProductPagination
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(tags=['Blog'], responses={200: BlogSerializer(many=True)})
     def get(self, request, pk):
@@ -65,6 +71,7 @@ class BlogsSubCategoryView(APIView):
     
 
 class BlogView(APIView):
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(tags=['Blog'], responses={200: BlogSerializer(many=True)})
     def get(self, request, pk):

@@ -4,11 +4,14 @@ from rest_framework import status
 
 from drf_yasg.utils import swagger_auto_schema
 
+from rest_framework.permissions import AllowAny
+
 from faject.models import MainCategory, MainContent
 from faject.main.serializers import MainCategorySerializer, MainContentSerializer
 
 
 class MainCategorysView(APIView):
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(tags=['Main'], responses={200: MainCategorySerializer(many=True)})
     def get(self, request):
@@ -18,6 +21,7 @@ class MainCategorysView(APIView):
 
 
 class MainContentsView(APIView):
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(tags=['Main'], responses={200: MainContentSerializer(many=True)})
     def get(self, request):
@@ -27,6 +31,7 @@ class MainContentsView(APIView):
 
 
 class MainContentCategoryView(APIView):
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(tags=['Main'], responses={200: MainContentSerializer(many=True)})
     def get(self, request, pk):

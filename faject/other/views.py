@@ -5,11 +5,14 @@ from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
+from rest_framework.permissions import AllowAny
+
 from faject.models import Comanda, ToolsCategory, Tools, Application
 from faject.other.serializers import ComandaSerializer, ToolsCategorySerializer, ToolsSerializer, ApplicationSerializer
 
 
 class ComandaView(APIView):
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(tags=['Other'], responses={200: ComandaSerializer(many=True)})
     def get(self, request):
@@ -19,6 +22,7 @@ class ComandaView(APIView):
 
 
 class ToolsCategoryView(APIView):
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(tags=['Other'], responses={200: ToolsCategorySerializer(many=True)})
     def get(self, request):
@@ -28,6 +32,7 @@ class ToolsCategoryView(APIView):
 
 
 class ToolsView(APIView):
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(tags=['Other'], responses={200: ToolsSerializer(many=True)})
     def get(self, request):
@@ -37,6 +42,7 @@ class ToolsView(APIView):
 
 
 class ToolView(APIView):
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(tags=['Other'], responses={200: ToolsSerializer(many=True)})
     def get(self, request, pk):
@@ -46,6 +52,7 @@ class ToolView(APIView):
 
 
 class ApplicationView(APIView):
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(
         tags=['Other'],

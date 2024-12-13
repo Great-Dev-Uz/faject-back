@@ -3,11 +3,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 
+from rest_framework.permissions import AllowAny
+
 from faject.models import Category
 from faject.category.serializers import CategorySerializers
 
 
 class CategoryView(APIView):
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(tags=['Category'], responses={200: CategorySerializers(many=True)})
     def get(self, request):

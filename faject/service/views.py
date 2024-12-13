@@ -5,6 +5,8 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from drf_yasg.utils import swagger_auto_schema
 
+from rest_framework.permissions import AllowAny
+
 from faject.pagination import ProductPagination
 from faject.models import Servise, Projects
 from faject.service.serializers import SericeSerializer
@@ -12,6 +14,7 @@ from faject.projects.serializers import ProjectSerializer
 
 
 class ServicesView(APIView):
+    permission_classes = [AllowAny]
     pagination_class = ProductPagination
 
     @swagger_auto_schema(tags=['Service'], responses={200: SericeSerializer(many=True)})
@@ -24,6 +27,7 @@ class ServicesView(APIView):
 
 
 class ServiceCategoryView(APIView):
+    permission_classes = [AllowAny]
     pagination_class = ProductPagination
 
     @swagger_auto_schema(tags=['Service'], responses={200: SericeSerializer(many=True)})
@@ -36,6 +40,7 @@ class ServiceCategoryView(APIView):
     
 
 class ServiceView(APIView):
+    permission_classes = [AllowAny]
 
     @swagger_auto_schema(tags=['Service'], responses={200: SericeSerializer(many=True)})
     def get(self, request, pk):
